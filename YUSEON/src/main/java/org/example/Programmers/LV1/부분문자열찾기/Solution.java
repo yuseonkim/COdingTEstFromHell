@@ -1,4 +1,4 @@
-package org.example.Programmers.부분문자열찾기;
+package org.example.Programmers.LV1.부분문자열찾기;
 
 class Solution {
     public int solution(String t, String p) {
