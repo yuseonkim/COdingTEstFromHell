@@ -1,6 +1,6 @@
 package org.example.Programmers.LV1.삼총사;
 
-public class 삼총사 {
+public class Solution {
     static int count = 0;
 
     static void combination(int[] arr, boolean[] check, int start, int depth, int r) {
