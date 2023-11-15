@@ -40,11 +40,11 @@ def bfs():
       # 이동하는 곳이 범위 내에 있고 이동하지 않았다면 이동
       if 0 <= i <= 100000 and graph[i] == -1:
         if i == target * 2:
-          graph[i] = graph[target] # 0초 갱신
-          queue.appendleft(i) # 순간이동이기에 먼저 탐색
+          graph[i] = graph[target] # 현재까지의 최단 시간을 유지
+          queue.appendleft(i) # 순간이동이기에 먼저 탐색(순간이동은 시간이 소요되지 않기 때문에 큐의 왼쪽에 추가)
         else:
-          graph[i] = graph[target] + 1
-          queue.append(i)
+          graph[i] = graph[target] + 1 # 현재까지의 시간에 +1
+          queue.append(i) # 탐색하기 때문에 큐의 오른쪽에 추가(일반적인 추가)
           
     
 n, k = map(int, sys.stdin.readline().split())
