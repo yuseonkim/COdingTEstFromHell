@@ -18,7 +18,6 @@ public class Solution {
             answer++;
             int newNum = heap.remove() +heap.remove()*2;
             heap.add(newNum);
-
         }
         return answer;
     }
