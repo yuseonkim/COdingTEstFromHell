@@ -3,30 +3,40 @@
 # maps : 지도를 나타내는 문자열 배열
 # 각 섬에서 머무를 수 있는 최대 일수 / 없으면 -1 return
 
-def dfs(maps, i, j, n, m, visited):
-  visited[i][j] = True
-  area = int(maps[i][j])
-  directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+from collections import deque
 
-  for dx, dy in directions:
-    x, y = i + dx, j + dy
-    if 0 <= x < n and 0 <= y < m and not visited[x][y] and maps[x][y] != 'X':
-      area += dfs(maps, x, y, n, m, visited)
+dx, dy = [0, 0, -1, 1], [-1, 1, 0, 0]
 
-  return area
+def dfs(maps, i, j, n, m, visit):
+    visit[i][j] = 1
+    q = deque()
+    q.append([i, j])
+    days = 0
+    while q:
+        i, j = q.popleft()
+        days += int(maps[i][j])
+        for d in range(4):
+            x, y = i + dx[d], j + dy[d]
+            if not(0 <= x < n and 0 <= y < m): continue
+            if visit[x][y] == 0 and maps[x][y] != 'X':
+                q.append([x, y])
+                visit[x][y] = 1
+    return days
 
 def solution(maps):
   answer = []
-  n, m = len(maps), len(maps[0])
-  visited = [[False] * m for _ in range(n)]
-
+  for i in range(len(maps)):
+      maps[i] = list(maps[i])
+  n = len(maps)
+  m = len(maps[0])
+  visit = [[0] * m for _ in range(n)]
+  
   for i in range(n):
-    for j in range(m):
-      if maps[i][j] != 'X' and not visited[i][j]:
-        answer.append(dfs(maps, i, j, n, m, visited))
-
+      for j in range(m):
+          if maps[i][j] != 'X' and visit[i][j] == 0:
+              answer.append(dfs(maps, i, j, n, m, visit))
   if answer:
-    return sorted(answer)
+      return sorted(answer)
   else:
-    return [-1]
+      return [-1]
     
